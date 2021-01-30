@@ -1,4 +1,4 @@
-// excecuting a call back when the DOM is ready
+// executing a call back when the DOM is ready
 $(document).ready(function () {
 
 
@@ -18,6 +18,9 @@ if (artistName) {
 }
 
 // if the user puts in the artist name and favorite song we execute the getLyrics function
+if  (artistName && favoriteSong ){
+    getLyrics(artistName, favoriteSong)
+}
 // if the user puts in artistName and favoriteSong we execute the localStorage function
 
  })
@@ -77,10 +80,10 @@ function getLyrics(artistName,favoriteSong){
         url: songSearchURL,
         method: "GET"
     }).then(function (response) {
+        var artistLyrics = $('#artistLyrics')
+        artistLyrics.addClass( "results-container" );
+        artistLyrics.append(`<p><strong>${favoriteSong}:lyrics</strong> ${response.lyrics}</p>`);
 
-        console.log(`%c LYRICS:`, 'font-size:42px; color: orange; background-color: black')
-        console.log(response.lyrics)
-        $("#lyrics").html(response.lyrics)
     });
 
 
