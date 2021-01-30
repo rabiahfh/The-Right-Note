@@ -13,7 +13,9 @@ $(document).ready(function () {
         var storedLanguage = $("#stored-language").val()
         console.log(storedLanguage)
 // if the user puts in a artist name we execute the getArtistData function
-
+if (artistName) {
+    getArtistData (artistName, storedLanguage)
+}
 
 // if the user puts in the artist name and favorite song we execute the getLyrics function
 // if the user puts in artistName and favoriteSong we execute the localStorage function
@@ -21,7 +23,9 @@ $(document).ready(function () {
  })
 // execute code to get previously searched artist info. from localStorage
 });
-function getArtistData () {
+
+function getArtistData (artistName, storedLanguage) {
+    
     var artistSearchURL = `https://theaudiodb.com/api/v1/json/1/search.php?s=${encodeURIComponent(artistName)}`;
 
     console.log(artistSearchURL)
@@ -32,18 +36,19 @@ function getArtistData () {
         method: "GET"
     }).then(function (response) {
 
-  
+  var artistBioElement = $('#artistBio')
+  artistBioElement.addClass( "results-container" );
 
         var artistSearch = response.artists[0].strArtist
-        if (artistSearch) {
-            $("#artistSearch").html("<strong>" + artistSearch + "</strong>")
-
-        }
         var artistStyle = response.artists[0].strStyle
         var artistYear = response.artists[0].intFormedYear
         var website = response.artists[0].strWebsite
         var artistImage = response.artists[0].strArtistFanart
-
+        artistBioElement.append(`<p><strong>Artist Name:</strong> ${artistSearch}</p>`);
+        artistBioElement.append(`<p><strong>Artist Style:</strong> ${artistStyle}</p>`);
+        artistBioElement.append(`<p><strong>Artist Year:</strong> ${artistYear}</p>`);
+        artistBioElement.append(`<p><strong>website:</strong> ${website}</p>`);
+        artistBioElement.append(`<img src="${artistImage}"/>`);
         var arrKeys = Object.keys(response.artists[0]);
         for (var i = 0; i < arrKeys.length; i++) {
             //console.log(arrKeys[i].indexOf(storedLanguage))
@@ -51,8 +56,7 @@ function getArtistData () {
                 var biography = response.artists[0][arrKeys[i]]
                 console.log(biography)
                 if (biography) {
-                    $("#biography").html(biography)
-
+                    artistBioElement.append(`<p><strong>Artist Biography:</strong> ${biography}</p>`);
                 }
 
             }
