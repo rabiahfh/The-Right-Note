@@ -1,5 +1,3 @@
-  
-
 $(document).ready(function () {
 
     //var artistName = $("#favorite-artist").val()
@@ -65,3 +63,9 @@ $(document).ready(function () {
             });
 
         })
+
+
+    });
+
+
+});
