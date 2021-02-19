@@ -21,3 +21,5 @@ We created an application for user's to search an artist and discover the lyrics
 ## Installation
 ```
   git clone git@github.com:juan8389/theRightNote.git
+
+  
